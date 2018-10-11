@@ -1,6 +1,6 @@
 # Word Prediction using Convolutional Neural Networks—can you do better than iPhone™ Keyboard?
 
-In this project, we examine how well neural networks can predict the current or next word. Language modeling is one of the most important nlp tasks, and you can easily find deep learning approaches to it. Our contribution is threefold. First, we want to make a model that simulates a mobile environment, rather than having general modeling purposes. Therefore, instead of assessing perplexity, we try to save the keystrokes that the user need to type. To this end, we manually typed 64 English paragraphs with a iPhone 7 for comparison. It was super boring, but hopefully it will be useful for others. Next, we use CNNs instead of RNNs, which are more widely used in language modeling tasks. RNNs—even improved types such as LSTM or GRU—suffer from short term memory. Deep layers of CNNs are expected to overcome the limitation. Finally, we employ a character-to-word model here. Concretely, we predict the current or next word, seeing the preceding 50 characters. Because we need to make a prediction at every time step of typing, the word-to-word model dont't fit well. And the char-to-char model has limitations in that it depends on the autoregressive assumption. Our current belief is the character-to-word model is best for this task. Although our relatively simple model is still behind a few steps iPhone 7 Keyboard, we observed its potential.
+이 프로젝트에서 우리는 신경망이 현재 또는 다음 단어를 얼마나 잘 예측할 수 있는지 조사합니다. 언어 모델링은 가장 중요한 nlp 작업 중 하나이며, 학습 방법을 쉽게 찾을 수 있습니다. 우리의 공헌은 세 가지입니다. 첫째, 일반적인 모델링 목적보다는 모바일 환경을 시뮬레이션하는 모델을 만들고 싶습니다. 따라서 perplexity를 평가하는 대신 사용자가 입력해야하는 키 입력을 저장하려고합니다. 이를 위해 비교를 위해 iPhone 7을 사용하여 수동으로 64 개의 영어 단락을 입력했습니다. 슈퍼 지루했지만 잘하면 그것은 다른 사람들에게 유용 할 것입니다. 다음으로 RNN 대신 CNN을 사용합니다. RNN은 언어 모델링 작업에서보다 널리 사용됩니다. RNNs - LSTM 또는 GRU와 같은 향상된 유형조차도 단기 기억에 시달립니다. CNN의 깊은 층은 한계를 극복 할 것으로 예상됩니다. 마지막으로 우리는 여기서 문자 대 단어 모델을 사용합니다. 구체적으로, 현재 또는 다음 단어를 예측하여 앞의 50자를 봅니다. 타이핑 할 때마다 예측을해야하기 때문에 단어 대 단어 모델은 잘 맞지 않습니다. char-to-char 모델은 자기 회귀 적 가정에 의존한다는 점에서 한계가 있습니다. 우리의 현재의 믿음은 문자 대 단어 모델이이 작업에 가장 적합하다는 것입니다. 우리의 비교적 단순한 모델이 iPhone 7 키보드의 몇 단계 뒤에 있지만, 우리는 그 잠재력을 관찰했습니다.
 
 ## Requirements
   * numpy >= 1.11.1
@@ -13,16 +13,16 @@ In this project, we examine how well neural networks can predict the current or 
 
 <img src="image/word_prediction.gif" width="200" align="right">
 
-* Most smartphone keyboards offer a word prediction option to save the user's typing. If you turn the option on, you can see suggested words on the top of the keyboard area. In iPhone, the leftmost one is verbatim, the middle one is appeared the top candidate.
+* 대부분의 스마트 폰 키보드는 사용자의 타이핑을 저장하는 단어 예측 옵션을 제공합니다. 이 옵션을 켜면 키보드 영역 상단에 추천 단어가 표시됩니다. iPhone에서 가장 왼쪽에있는 것은 축 어적이며 중간에있는 것이 가장 인기있는 후보입니다.
 
-* Full Keystrokes (FK): the keystrokes when supposing that the user has deactivated the prediction option. In this exeriment, the number of FK is the same as the number of characters (including spaces).
-* Responsive Keystroke (RK): the keystrokes when supposing that so the user always choose it if their intended word is suggested. Especially, we take only the top candidate into consideration here. 
-* Keystroke Savings Rate (KSR): the rate of savings by a predictive engine. It is simply calculated as follows.
+* Full Keystrokes (FK): 사용자가 예측 옵션을 비활성화했다고 가정 할 때의 키 입력입니다. 이 실험에서 FK의 수는 문자의 수 (공백 포함)와 동일합니다.
+* Responsive Keystroke (RK): 사용자가 의도 한 단어가 제안 될 때 사용자가 항상 그것을 선택하도록하는 키 스트로크. 특히, 우리는 여기서 최고의 후보만을 고려합니다.
+* Keystroke Savings Rate (KSR):  예측 엔진에 의한 저축률. 다음과 같이 계산됩니다.
   * KSR = (FK - RK) / FK 
 
 
 ## Data
-* For training and test, we build an English news corpus from wikinews dumps for the last 6 months.
+* 교육 및 테스트를 위해 지난 6 개월 동안 wikinews 덤프에서 영어 뉴스 코퍼스를 구축합니다.
 
 ## Model Architecture / Hyper-parameters
 
